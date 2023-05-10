@@ -8,10 +8,12 @@
   git checkout v21.02.3
 
   #Update the feeds:
+  
   ./scripts/feeds update -a
   ./scripts/feeds install -a
 
   #Configure the firmware image and the kernel:
+  
   wget https://downloads.openwrt.org/releases/21.02.3/targets/oxnas/ox820/config.buildinfo -O .config
   make menuconfig
        Target Profile -> RAIDON BX32N
