@@ -1,0 +1,127 @@
+/*
+ * RAIDON BX32N - Device tree file
+ *
+ * EDITOR BY PHCHSHOW
+ * REFERANCE other oxnas dts
+ * Licensed under GPLv2 or later
+ */
+
+/dts-v1/;
+#include "ox820.dtsi"
+#include <dt-bindings/gpio/gpio.h>
+
+/ {
+        model = "RAIDON BX32N";
+
+        compatible = "raidon,bx32n", "oxsemi,ox820";
+
+        chosen {
+                bootargs = "earlyprintk console=ttyS0,115200";
+                stdout-path = "serial0:115200n8";
+        };
+
+        memory {
+                /* 128Mbytes DDR */
+                reg = <0x60000000 0x8000000>;
+        };
+
+        aliases {
+                serial0 = &uart0;
+                gpio0 = &gpio0;
+                gpio1 = &gpio1;
+                led-boot = &led_status;
+                led-failsafe = &led_warn;
+                led-running = &led_act;
+                led-upgrade = &led_warn;
+        };
+
+        /* Try to fixed,when I learning i2c and gpio. */
+
+        leds {
+                compatible = "gpio-leds";
+
+                led_status: blue {
+                        label = "pogoplug:blue";
+                        gpios = <&gpio1 5 GPIO_ACTIVE_HIGH>;
+                        default-state = "keep";
+                };
+
+                led_warn: red {
+                        label = "pogoplug:red";
+                        gpios = <&gpio1 6 GPIO_ACTIVE_LOW>;
+                        default-state = "keep";
+                };
+
+        };
+
+};
+
+&uart0 {
+        status = "okay";
+
+        pinctrl-names = "default";
+        pinctrl-0 = <&pinctrl_uart0>;
+};
+
+&nandc {
+        status = "okay";
+
+        pinctrl-names = "default";
+        pinctrl-0 = <&pinctrl_nand>;
+
+        nand@0 {
+                reg = <0>;
+                #address-cells = <1>;
+                #size-cells = <1>;
+                nand-ecc-mode = "soft";
+                nand-ecc-algo = "hamming";
+
+                partition@0 {
+                        label = "bootload";
+                        reg = <0x00000000 0x000440000>;
+                        read-only;
+                };
+
+                partition@440000 {
+                        label = "recover";
+                        reg = <0x000440000 0x01000000>;
+                        read-only;
+                };
+
+                partition@1440000 {
+                        label = "kernel";
+                        reg = <0x001440000 0x000c0000>;
+                };
+
+                partition@2040000 {
+                        label = "bootfs";
+                        reg = <0x002040000 0x00c00000>;
+                };
+
+                partition@2c40000 {
+                        label = "config";
+                        reg = <0x002c40000 0x00500000>;
+                };
+
+                partition@3140000 {
+                        label = "ubi";
+                        reg = <0x003140000 0x004ec0000>;
+                };
+        };
+};
+
+&ehci {
+        status = "okay";
+};
+
+&etha {
+        status = "okay";
+
+        pinctrl-names = "default";
+        pinctrl-0 = <&pinctrl_etha_mdio>;
+};
+
+&sata {
+        status = "okay";
+        nr-ports = <2>;
+};
