@@ -1,17 +1,17 @@
 # openwrt-raidon-bx32n
 
-# BUILD OPENWRT WORLD:
+# BUILD OPENWRT WORLD
   git clone https://git.openwrt.org/openwrt/openwrt.git
   cd openwrt
   git pull
   
   git checkout v21.02.3
 
-  #Update the feeds
+  #Update the feeds:
   ./scripts/feeds update -a
   ./scripts/feeds install -a
 
-  #Configure the firmware image and the kernel
+  #Configure the firmware image and the kernel:
   wget https://downloads.openwrt.org/releases/21.02.3/targets/oxnas/ox820/config.buildinfo -O .config
   make menuconfig
        Target Profile -> RAIDON BX32N
