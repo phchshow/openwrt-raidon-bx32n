@@ -1,6 +1,6 @@
 # openwrt-raidon-bx32n
 
-BUILD OPENWRT WORLD:
+#BUILD OPENWRT WORLD:
   git clone https://git.openwrt.org/openwrt/openwrt.git
   cd openwrt
   git pull
