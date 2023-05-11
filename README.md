@@ -60,7 +60,7 @@
     #if still can't use eth. unplug power line, re-plugin power ling,click power.
     #oem system will check eth status and repair it.// will try check oem how to repair eth  
     #oem system is back. re-flash openwrt step again.
- #openwrt 
+ # openwrt 
      
      install kmod-ata-oxnas-sata kmod-usb-storage kmod-usb2-oxnas
      //hdd, usb storage will be find.
